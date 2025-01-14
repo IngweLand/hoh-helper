@@ -1,0 +1,54 @@
+{
+	"name": "Forge of Games HoH Extension",
+	"description": "The extension to export user data, in particular the city, from the Heroes of History game.",
+	"version": "0.1",
+
+	"manifest_version": 3,
+	"permissions": [
+		"storage",
+		"tabs",
+		"clipboardWrite"
+	],
+
+	"host_permissions": [
+		"https://*.heroesofhistorygame.com/*"
+	],
+
+	"action": {
+		"default_icon": "images/app32.png",
+		"default_title": "Forge of Games HoH Extension"
+	},
+
+	"icons": {
+		"32": "images/app32.png"
+	},
+
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"js/*",
+				"vendor/*",
+				"css/*",
+				"content/*"
+			],
+			"matches": [ "https://*/*" ]
+		}
+	],
+
+	"content_scripts": [
+		{
+			"matches": ["https://*.heroesofhistorygame.com/*"],
+			"include_globs": [ "*heroesofhistorygame.com*" ],
+			"run_at": "document_start",
+			"js": [
+				"vendor/browser-polyfill/browser-polyfill.min.js",
+				"js/inject.js"
+			]
+		}
+	],
+
+	"externally_connectable" : {
+		"matches": ["https://*.heroesofhistorygame.com/*"],
+		"ids": ["*"]
+	}
+}
