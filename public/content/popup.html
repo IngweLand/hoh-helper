@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HoH Helper</title>
+    <link href="../css/popup.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">HoH Helper | Forge of Games</h1>
+            <img src = "../css/images/help_24dp_5F6368_FILL1_wght400_GRAD0_opsz24.svg" id="helpButton"/>
+        </div>
+
+        <div class="section">
+            <span class="section-title">Data Collection Settings</span>
+            <span class="section-description">Choose which game data is automatically collected and sent:</span>
+            <div id="checkboxContainer" class="checkbox-group">
+                <!-- Checkboxes will be inserted here dynamically -->
+            </div>
+            <button id="enableAllButton" class="button">Enable all</button>
+        </div>
+
+        <div class="section">
+            <span class="section-title">HoH City Planner and Command Center</span>
+            <span class="section-description">Export your current city and heroes to <strong>Forge of Games</strong></span>
+            <button id="exportToFogButton" class="button" disabled></button>
+        </div>
+    </div>
+    <script src="../popup.js"></script>
+</body>
+</html>

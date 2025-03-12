@@ -1,4 +1,3 @@
-This extension enables easy data export from the HoH game. Made for the Forge of Games, to enable, in particular, city importing. 
+Easily export your Heroes of History game data—including city layouts, heroes, and leaderboards—to Forge of Games. This extension enables seamless integration with tools like HoH City Planner, Command Center, and Stats Hub to enhance your gameplay experience.
 
-This is a modified version of the original FoE-Helper extension.
-Original source: https://github.com/mainIine/foe-helfer-extension/
+Inspired by FoE-Helper extension https://github.com/mainIine/foe-helfer-extension/

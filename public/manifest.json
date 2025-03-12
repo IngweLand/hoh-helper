@@ -1,0 +1,59 @@
+{
+	"name": "HoH Helper | Forge of Games",
+	"description": "Easily export your Heroes of History game data—including city layouts, heroes, and leaderboards—to Forge of Games. This extension enables seamless integration with tools like HoH City Planner, Command Center, and Stats Hub to enhance your gameplay experience.",
+	"version": "1.0.4",
+	"manifest_version": 3,
+	"permissions": [
+		"storage",
+		"tabs"
+	],
+	"host_permissions": [
+		"https://*.heroesofhistorygame.com/*"
+	],
+
+	"action": {
+		"default_icon": {
+			"16": "images/icon16.png",
+			"32": "images/icon32.png",
+			"48": "images/icon48.png"
+		},
+		"default_title": "HoH Helper | Forge of Games",
+		"default_popup": "content/popup.html"
+	},
+
+	"icons": {
+		"16": "images/icon16.png",
+		"32": "images/icon32.png",
+		"48": "images/icon48.png",
+		"128": "images/icon128.png"
+	},
+
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"css/*",
+				"content/*"
+			],
+			"matches": [ "https://*/*" ]
+		}
+	],
+	"content_scripts": [
+		{
+			"world": "MAIN",
+			"matches": ["https://*.heroesofhistorygame.com/*"],
+			"include_globs": ["*heroesofhistorygame.com*"],
+			"run_at": "document_start",
+			"js": [
+				"injected/main.js"
+			]
+		},
+		{
+			"matches": ["https://*.heroesofhistorygame.com/*"],
+			"include_globs": [ "*heroesofhistorygame.com*" ],
+			"run_at": "document_start",
+			"js": [
+				"content.js"
+			]
+		}
+	]
+}
