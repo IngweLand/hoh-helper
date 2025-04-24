@@ -41,9 +41,9 @@ export const messagingPageSource: string = "hohPage";
 export const hohProxyDataReceived: string = "hohProxyDataReceived";
 export const endpointMap: Record<string, string[]>= {};
 
-export const dataCollectionApiBaseUrl: string = "https://forgeofgames-f.azurewebsites.net/api/hoh/inGameData";
-export const fogHohApiBaseUrl: string = "https://forgeofgames.com/api/hoh";
-export const extensionHelpPage: string = "https://forgeofgames.com/help/browser-extension";
+export const dataCollectionApiBaseUrl = DATA_COLLECTION_API_BASE_URL;
+export const fogHohApiBaseUrl = FOG_HOH_API_BASE_URL;
+export const extensionHelpPage = EXTENSION_HELP_PAGE;
 
 export const dataCollectionSettingsStorageKey: string = "dataCollectionSettings";
 export const dataCollectionTimingsStorageKey: string = "dataCollectionTimings";
