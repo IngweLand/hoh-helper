@@ -1,9 +1,12 @@
 {
   "name": "hoh-helper",
-  "version": "1.0.4",
-  "description": "Easily export your Heroes of History game data—including city layouts, heroes, and leaderboards—to Forge of Games. This extension enables seamless integration with tools like HoH City Planner, Command Center, and Stats Hub to enhance your gameplay experience.",
+  "version": "1.0.5",
+  "description": "Easily export your Heroes of History game data—including city layouts, heroes, and leaderboards—to Forge of Games.",
   "scripts": {
-    "build": "node build.js && copyfiles -u 1 public/**/* dist"
+    "build:dev": "node build.js dev && copyfiles -u 1 public/**/* dist",
+    "build:staging": "node build.js staging && copyfiles -u 1 public/**/* dist",
+    "build:prod": "node build.js prod && copyfiles -u 1 public/**/* dist",
+    "build": "npm run build:dev"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,7 @@
     "@types/chrome": "^0.0.306",
     "@types/node": "^22.13.5",
     "copyfiles": "^2.4.1",
+    "dotenv": "^16.4.7",
     "esbuild": "^0.25.0",
     "typescript": "^5.7.3"
   }
