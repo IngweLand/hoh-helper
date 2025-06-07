@@ -20,21 +20,31 @@ export const dataCollectionCategories: DataCollectionCategory[] = [
         gameEndpoint: [
             "game/wakeup"
         ]
+    },
+    {
+        id: "pvpBattles",
+        label: "Arena Battles",
+        description: "Your arena battles",
+        gameEndpoint: [
+            "game/pvp/get-battle-history"
+        ]
+    },
+    {
+        id: "battleStats",
+        label: "Battle stats",
+        description: "Result stats of battles",
+        gameEndpoint: [
+            "game/battle/hero/stats"
+        ]
     }
-    // {
-    //     id: "battleStats",
-    //     label: "Battle stats",
-    //     description: "",
-    //     urlPatterns: [
-    //         "game/battle/hero/stats"
-    //     ]
-    // }
 ];
 
 export const defaultSendingFrequencyMinutes: number = 360;
 export const sendingFrequenciesMinutes: Record<string, number> = {
     "game/pvp/get-ranking": 120,
     "game/wakeup": 120,
+    "game/battle/hero/stats": 0.017,
+    "game/pvp/get-battle-history": 5,
 };
 
 export const messagingPageSource: string = "hohPage";
