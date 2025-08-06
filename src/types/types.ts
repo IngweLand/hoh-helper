@@ -47,8 +47,10 @@ export type ResourceCreatedResponse = {
     webResourceUrl: string;
 }
 export type HohHelperResponseDto = {
+    base64RequestData?: string;
     base64ResponseData?: string;
     responseURL: string;
     collectionCategoryIds: string[];
+    submissionId?: string;
 }
 

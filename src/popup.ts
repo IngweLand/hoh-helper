@@ -1,8 +1,10 @@
 import {
     dataCollectionCategories,
-    dataCollectionSettingsStorageKey, extensionHelpPage,
+    dataCollectionSettingsStorageKey,
+    extensionHelpPage,
     fogHohApiBaseUrl,
-    startupDataStorageKey
+    startupDataStorageKey,
+    submissionIdStorageKey
 } from "./constants";
 import { DataCollectionSettings, ImportInGameStartupDataRequestDto, ResourceCreatedResponse } from "./types/types";
 import getLogger from "./logger";
@@ -157,4 +159,117 @@ document.addEventListener("DOMContentLoaded", async function() {
     loadSettings();
     attachCheckboxListeners();
     await updateExportDataState();
+
+    const submissionIdLabel = document.getElementById("submissionIdLabel") as HTMLSpanElement;
+    const submissionIdInput = document.getElementById("submissionIdInput") as HTMLInputElement;
+    const editSubmissionIdButton = document.getElementById("editSubmissionIdButton") as HTMLButtonElement;
+    const saveSubmissionIdButton = document.getElementById("saveSubmissionIdButton") as HTMLButtonElement;
+    const generateSubmissionIdButton = document.getElementById("generateSubmissionIdButton") as HTMLButtonElement;
+    const deleteSubmissionIdButton = document.getElementById("deleteSubmissionIdButton") as HTMLButtonElement;
+    const copySubmissionIdButton = document.getElementById("copySubmissionIdButton") as HTMLButtonElement;
+    const cancelSavingSubmissionIdButton = document.getElementById("cancelSavingSubmissionIdButton") as HTMLButtonElement;
+
+    let currentSubmissionId = "";
+
+    async function loadSubmissionId(): Promise<void> {
+        const result = await chrome.storage.sync.get(submissionIdStorageKey);
+        currentSubmissionId = result[submissionIdStorageKey] || "";
+        updateSubmissionIdDisplay();
+    }
+
+    function updateSubmissionIdDisplay(): void {
+        submissionIdLabel.textContent = currentSubmissionId || "No ID set";
+    }
+
+    function isValidUUID(uuid: string): boolean {
+        const uuidV4Regex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+        return uuidV4Regex.test(uuid);
+    }
+
+    function setDefaultSubmissionFormElementsVisibility(): void {
+        submissionIdLabel.classList.remove("hidden");
+        generateSubmissionIdButton.classList.remove("hidden");
+        submissionIdInput.classList.add("hidden");
+        saveSubmissionIdButton.classList.add("hidden");
+        cancelSavingSubmissionIdButton.classList.add("hidden");
+        if (currentSubmissionId === undefined || currentSubmissionId === "") {
+            editSubmissionIdButton.classList.add("hidden");
+            deleteSubmissionIdButton.classList.add("hidden");
+            copySubmissionIdButton.classList.add("hidden");
+        } else {
+            editSubmissionIdButton.classList.remove("hidden");
+            deleteSubmissionIdButton.classList.remove("hidden");
+            copySubmissionIdButton.classList.remove("hidden");
+        }
+    }
+
+    editSubmissionIdButton.addEventListener("click", () => {
+        submissionIdInput.value = currentSubmissionId;
+
+        submissionIdInput.classList.remove("input-error");
+        submissionIdLabel.classList.add("hidden");
+        editSubmissionIdButton.classList.add("hidden");
+        submissionIdInput.classList.remove("hidden");
+        saveSubmissionIdButton.classList.remove("hidden");
+        cancelSavingSubmissionIdButton.classList.remove("hidden");
+        deleteSubmissionIdButton.classList.add("hidden");
+        generateSubmissionIdButton.classList.add("hidden");
+        copySubmissionIdButton.classList.add("hidden");
+    });
+
+    saveSubmissionIdButton.addEventListener("click", async () => {
+        const newCode = submissionIdInput.value.trim();
+
+        if (!isValidUUID(newCode)) {
+            submissionIdInput.classList.add("input-error");
+            submissionIdInput.title = "Invalid UUID format.";
+            return;
+        }
+
+        submissionIdInput.classList.remove("input-error");
+        submissionIdInput.title = "";
+
+        currentSubmissionId = newCode;
+        await chrome.storage.sync.set({ [submissionIdStorageKey]: currentSubmissionId });
+        updateSubmissionIdDisplay();
+
+        setDefaultSubmissionFormElementsVisibility();
+    });
+
+    cancelSavingSubmissionIdButton.addEventListener("click", async () => {
+        setDefaultSubmissionFormElementsVisibility();
+    });
+
+    generateSubmissionIdButton.addEventListener("click", async () => {
+        currentSubmissionId = crypto.randomUUID();
+        await chrome.storage.sync.set({ [submissionIdStorageKey]: currentSubmissionId });
+        updateSubmissionIdDisplay();
+        deleteSubmissionIdButton.classList.remove("hidden");
+        copySubmissionIdButton.classList.remove("hidden");
+        editSubmissionIdButton.classList.remove("hidden");
+    });
+
+    deleteSubmissionIdButton.addEventListener("click", async () => {
+        currentSubmissionId = "";
+        await chrome.storage.sync.remove(submissionIdStorageKey);
+        updateSubmissionIdDisplay();
+        deleteSubmissionIdButton.classList.add("hidden");
+        copySubmissionIdButton.classList.add("hidden");
+        editSubmissionIdButton.classList.add("hidden");
+    });
+
+    copySubmissionIdButton.addEventListener("click", async () => {
+        try {
+            await navigator.clipboard.writeText(submissionIdLabel.textContent || "");
+            copySubmissionIdButton.title = "Copied!";
+            setTimeout(() => {
+                copySubmissionIdButton.title = "Copy";
+            }, 1000);
+        } catch (err) {
+            console.error("Failed to copy", err);
+        }
+    });
+
+    await loadSubmissionId();
+    setDefaultSubmissionFormElementsVisibility();
 });

@@ -51,7 +51,6 @@ export const dataCollectionCategories: DataCollectionCategory[] = [
 export const defaultSendingFrequencyMinutes: number = 360;
 export const sendingFrequenciesMinutes: Record<string, number> = {
     "game/pvp/get-ranking": 120,
-    "game/wakeup": 120,
     "game/battle/hero/stats": 0.017,
     "game/battle/hero/start": 0.017,
     "game/battle/hero/complete-wave": 0.017,
@@ -66,6 +65,7 @@ export const dataCollectionApiBaseUrl = DATA_COLLECTION_API_BASE_URL;
 export const fogHohApiBaseUrl = FOG_HOH_API_BASE_URL;
 export const extensionHelpPage = EXTENSION_HELP_PAGE;
 
+export const submissionIdStorageKey = "submissionId";
 export const dataCollectionSettingsStorageKey: string = "dataCollectionSettings";
 export const dataCollectionTimingsStorageKey: string = "dataCollectionTimings";
 export const startupDataStorageKey: string = "startupData";

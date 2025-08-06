@@ -25,6 +25,25 @@
             <span class="section-description">Export your current city and heroes to <strong>Forge of Games</strong></span>
             <button id="exportToFogButton" class="button" disabled></button>
         </div>
+
+        <div class="section" id="submissionIdSection">
+            <span class="section-title">Submission ID</span>
+
+            <div class="submission-id-display-row">
+                <span id="submissionIdLabel">No ID set</span>
+                <input type="text" id="submissionIdInput" class="hidden"/>
+                <button id="copySubmissionIdButton" class="icon-button hidden" title="Copy">&#128203;</button>
+                <button id="editSubmissionIdButton" class="icon-button hidden" title="Edit Submission ID">✏️</button>
+                <button id="saveSubmissionIdButton" class="button hidden">Save</button>
+                <button id="cancelSavingSubmissionIdButton" class="button hidden">Cancel</button>
+            </div>
+
+            <div class="button-group">
+                <button id="generateSubmissionIdButton" class="button">Generate New ID</button>
+                <button id="deleteSubmissionIdButton" class="button hidden">Delete ID</button>
+            </div>
+        </div>
+
     </div>
     <script src="../popup.js"></script>
 </body>

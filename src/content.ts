@@ -15,7 +15,8 @@ import {
     hohProxyDataReceived,
     messagingPageSource,
     sendingFrequenciesMinutes,
-    startupDataStorageKey
+    startupDataStorageKey,
+    submissionIdStorageKey
 } from "./constants";
 import getLogger from "./logger";
 
@@ -67,9 +68,11 @@ const handleProxyData = async function(data: WebPageMessagePayload) {
     if (allowedCategoryIds.length > 0) {
         logger.info(`Sending '${responseUrlPath}'`);
         const payload: HohHelperResponseDto = {
+            base64RequestData: data.base64RequestData,
             base64ResponseData: data.base64ResponseData,
             responseURL: data.responseURL,
-            collectionCategoryIds: allowedCategoryIds
+            collectionCategoryIds: allowedCategoryIds,
+            submissionId: await getSubmissionId()
         };
         await sendData(payload);
         await saveSentTiming(responseUrlPath);
@@ -154,6 +157,11 @@ const saveSentTiming = async (gameEndpoint: string): Promise<void> => {
 
 const saveStartupData = async (data: string): Promise<void> => {
     await chrome.storage.local.set({ [startupDataStorageKey]: data });
+};
+
+const getSubmissionId = async (): Promise<string | undefined> => {
+    const result = await chrome.storage.sync.get(submissionIdStorageKey);
+    return result[submissionIdStorageKey] || null;
 };
 
 
