@@ -52,8 +52,8 @@ export const sendingFrequenciesMinutes: Record<string, number> = {
     "game/battle/hero/stats": 0.017,
     "game/battle/hero/start": 0.017,
     "game/battle/hero/complete-wave": 0.017,
-    "game/pvp/get-battle-history": 5,
-    "game/wakeup": 60,
+    "game/pvp/get-battle-history": 60,
+    "game/wakeup": 180,
 };
 
 export const messagingPageSource: string = "hohPage";
