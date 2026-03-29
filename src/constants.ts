@@ -9,7 +9,6 @@ export const dataCollectionCategories: DataCollectionCategory[] = [
         gameEndpoint: [
             "game/ranking/player",
             "game/ranking/alliance",
-            "game/pvp/get-ranking",
             "game/wakeup"
         ]
     },
@@ -50,7 +49,6 @@ export const dataCollectionCategories: DataCollectionCategory[] = [
 
 export const defaultSendingFrequencyMinutes: number = 360;
 export const sendingFrequenciesMinutes: Record<string, number> = {
-    "game/pvp/get-ranking": 120,
     "game/battle/hero/stats": 0.017,
     "game/battle/hero/start": 0.017,
     "game/battle/hero/complete-wave": 0.017,
